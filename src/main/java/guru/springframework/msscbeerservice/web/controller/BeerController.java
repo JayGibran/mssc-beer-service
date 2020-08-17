@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import guru.springframework.msscbeerservice.web.model.BeerDTO;
@@ -29,6 +29,7 @@ public class BeerController {
 		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 	
+	@PutMapping("/{beerId}")
 	public ResponseEntity<String> updateBeedById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDTO beerDTO){
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
