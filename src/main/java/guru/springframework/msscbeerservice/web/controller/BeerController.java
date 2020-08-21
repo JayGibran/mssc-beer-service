@@ -3,6 +3,8 @@ package guru.springframework.msscbeerservice.web.controller;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,14 +38,14 @@ public class BeerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<String> saveNewBeer(@RequestBody BeerDTO beerDTO){
+	public ResponseEntity<String> saveNewBeer(@Valid @RequestBody BeerDTO beerDTO){
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Location", "/api/v1/beer/"+ beerDTO.getId().toString());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{beerId}")
-	public ResponseEntity<String> updateBeedById(@PathVariable("beerId") UUID beerId, @RequestBody BeerDTO beerDTO){
+	public ResponseEntity<String> updateBeedById(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDTO beerDTO){
 		return new ResponseEntity<String>(HttpStatus.NO_CONTENT);
 	}
 	
