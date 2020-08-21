@@ -40,7 +40,7 @@ public class BeerController {
 	@PostMapping
 	public ResponseEntity<String> saveNewBeer(@Valid @RequestBody BeerDTO beerDTO){
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Location", "/api/v1/beer/"+ beerDTO.getId().toString());
+		headers.add("Location", "/api/v1/beer/"+ UUID.randomUUID());
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
