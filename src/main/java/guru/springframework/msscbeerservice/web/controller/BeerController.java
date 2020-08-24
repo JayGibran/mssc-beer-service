@@ -32,7 +32,7 @@ public class BeerController {
 	
 	@PostMapping
 	public ResponseEntity<BeerDTO> saveNewBeer(@Valid @RequestBody BeerDTO beerDTO){
-		return new ResponseEntity<BeerDTO>(beerService.saveNewBeer(beerDTO), HttpStatus.OK);
+		return new ResponseEntity<BeerDTO>(beerService.saveNewBeer(beerDTO), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{beerId}")
