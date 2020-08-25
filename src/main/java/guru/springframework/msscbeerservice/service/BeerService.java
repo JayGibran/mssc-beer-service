@@ -4,7 +4,11 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.PageRequest;
+
 import guru.springframework.msscbeerservice.web.model.BeerDTO;
+import guru.springframework.msscbeerservice.web.model.BeerPagedList;
+import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
 
 public interface BeerService {
 
@@ -13,5 +17,7 @@ public interface BeerService {
 	BeerDTO saveNewBeer(BeerDTO beerDTO);
 
 	BeerDTO updateBeer(UUID beerId, @Valid BeerDTO beerDTO);
+
+	BeerPagedList listBeer(String beerName, BeerStyleEnum beerStyle, PageRequest of);
 
 }
