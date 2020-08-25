@@ -10,7 +10,7 @@ import guru.springframework.msscbeerservice.domain.Beer;
 import guru.springframework.msscbeerservice.repository.BeerRepository;
 import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
 
-@Component
+//@Component
 public class BeerLoader implements CommandLineRunner {
 
 	public static final Long BEER_1_UPC = 631234200036L;
