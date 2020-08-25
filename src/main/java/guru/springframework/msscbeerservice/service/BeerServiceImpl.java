@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -33,8 +34,10 @@ public class BeerServiceImpl implements BeerService {
 		this.beerMapper = beerMapper;
 	}
 	
+	@Cacheable(cacheNames = "beerCache", key ="#beerId", condition = "#showInventoryOnHand == false ")
 	@Override
 	public BeerDTO getBeerById(UUID beerId, Boolean showInventoryOnHand) {
+		
 		if(showInventoryOnHand) {
 			return beerMapper.beerToBeerDTOWithInventory(beerRepository.findById(beerId).orElseThrow(NoFoundException::new));
 		}else{
@@ -56,8 +59,10 @@ public class BeerServiceImpl implements BeerService {
 		return beerMapper.beerToBeerDTO(beerRepository.save(beer));
 	}
 
+	@Cacheable(cacheNames = "beerListCache", condition = "#showInventoryOnHand == false ")
 	@Override
 	public BeerPagedList listBeer(String beerName, BeerStyleEnum beerStyle, Boolean showInventoryOnHand, PageRequest pageRequest) {
+		
 		BeerPagedList beerPagedList;
 		Page<Beer> beerPage;
 		
@@ -93,7 +98,5 @@ public class BeerServiceImpl implements BeerService {
 		
 		return beerPagedList;
 	}
-
-	
 
 }

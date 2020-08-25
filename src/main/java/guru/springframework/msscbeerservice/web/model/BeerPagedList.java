@@ -1,5 +1,6 @@
 package guru.springframework.msscbeerservice.web.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.data.domain.PageImpl;
@@ -10,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class BeerPagedList extends PageImpl<BeerDTO> {
+public class BeerPagedList extends PageImpl<BeerDTO> implements Serializable {
 
 	/**
 	 * 
