@@ -34,8 +34,12 @@ public class BeerServiceImpl implements BeerService {
 	}
 	
 	@Override
-	public BeerDTO getBeerById(UUID beerId) {
-		return beerMapper.beerToBeerDTO(beerRepository.findById(beerId).orElseThrow(NoFoundException::new));
+	public BeerDTO getBeerById(UUID beerId, Boolean showInventoryOnHand) {
+		if(showInventoryOnHand) {
+			return beerMapper.beerToBeerDTOWithInventory(beerRepository.findById(beerId).orElseThrow(NoFoundException::new));
+		}else{
+			return beerMapper.beerToBeerDTO(beerRepository.findById(beerId).orElseThrow(NoFoundException::new));
+		}
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class BeerServiceImpl implements BeerService {
 	}
 
 	@Override
-	public BeerPagedList listBeer(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest) {
+	public BeerPagedList listBeer(String beerName, BeerStyleEnum beerStyle, Boolean showInventoryOnHand, PageRequest pageRequest) {
 		BeerPagedList beerPagedList;
 		Page<Beer> beerPage;
 		
@@ -67,17 +71,29 @@ public class BeerServiceImpl implements BeerService {
 			beerPage = beerRepository.findAll(pageRequest);
 		}
 		
-		beerPagedList = new BeerPagedList(
-				beerPage.getContent()
-				.stream()
-				.map(beerMapper::beerToBeerDTO)
-				.collect(Collectors.toList()), 
-				PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()), 
-				beerPage.getTotalElements()); 
+		
+		if(showInventoryOnHand) {
+			beerPagedList = new BeerPagedList(
+					beerPage.getContent()
+					.stream()
+					.map(beerMapper::beerToBeerDTOWithInventory)
+					.collect(Collectors.toList()), 
+					PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()), 
+					beerPage.getTotalElements()); 
+		}else {
+			beerPagedList = new BeerPagedList(
+					beerPage.getContent()
+					.stream()
+					.map(beerMapper::beerToBeerDTO)
+					.collect(Collectors.toList()), 
+					PageRequest.of(beerPage.getPageable().getPageNumber(), beerPage.getPageable().getPageSize()), 
+					beerPage.getTotalElements()); 
+		} 
+		
 		
 		return beerPagedList;
 	}
-	
+
 	
 
 }
