@@ -20,4 +20,6 @@ public interface BeerService {
 
 	BeerPagedList listBeer(String beerName, BeerStyleEnum beerStyle, Boolean showInventoryOnHand, PageRequest of);
 
+	BeerDTO getBeerByUpc(String upc);
+
 }

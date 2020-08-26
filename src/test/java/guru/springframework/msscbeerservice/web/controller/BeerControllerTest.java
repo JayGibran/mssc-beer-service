@@ -1,6 +1,9 @@
 package guru.springframework.msscbeerservice.web.controller;
 
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -15,13 +18,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyBoolean;
-
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import guru.springframework.msscbeerservice.bootstrap.BeerLoader;
 import guru.springframework.msscbeerservice.service.BeerService;
 import guru.springframework.msscbeerservice.web.model.BeerDTO;
 import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
@@ -78,7 +78,7 @@ public class BeerControllerTest {
 				.beerName("Guiness")
 				.beerStyleEnum(BeerStyleEnum.STOUT)
 				.price(new BigDecimal(2.0))
-				.upc(123123123123L)
+				.upc(BeerLoader.BEER_1_UPC)
 				.build();
 	}
 

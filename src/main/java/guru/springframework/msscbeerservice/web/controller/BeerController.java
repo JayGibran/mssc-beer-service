@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/beer")
+@RequestMapping("/api/v1")
 public class BeerController {
 	
 	private final BeerService beerService;
@@ -33,7 +33,7 @@ public class BeerController {
 	
 	private static final String DEFAULT_PAGE_SIZE = "25"; 
 	
-	@GetMapping
+	@GetMapping("/beer")
 	public ResponseEntity<BeerPagedList> listBeers(
 			@RequestParam(value = "pageNumber", required = false, defaultValue= DEFAULT_PAGE_NUMBER) Integer pageNumber, 
 			@RequestParam(value = "pageSize", required = false, defaultValue = DEFAULT_PAGE_SIZE) Integer pageSize, 
@@ -47,19 +47,25 @@ public class BeerController {
 		return new ResponseEntity<BeerPagedList>(beerList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{beerId}")
+	@GetMapping("/beer/{beerId}")
 	public ResponseEntity<BeerDTO> getBeerById(
 			@PathVariable("beerId") UUID beerId, 
 			@RequestParam(value="showInventoryOnHand", required = false, defaultValue = "false") Boolean showInventoryOnHand){
 		return new ResponseEntity<BeerDTO>(beerService.getBeerById(beerId, showInventoryOnHand), HttpStatus.OK);
 	}
 	
-	@PostMapping
+	@GetMapping("/beerUpc/{upc}")
+	public ResponseEntity<BeerDTO> getBeerByUpc(
+			@PathVariable("upc") String upc){
+		return new ResponseEntity<BeerDTO>(beerService.getBeerByUpc(upc), HttpStatus.OK);
+	}
+	
+	@PostMapping("/beer")
 	public ResponseEntity<BeerDTO> saveNewBeer(@Valid @RequestBody BeerDTO beerDTO){
 		return new ResponseEntity<BeerDTO>(beerService.saveNewBeer(beerDTO), HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/{beerId}")
+	@PutMapping("/beer/{beerId}")
 	public ResponseEntity<BeerDTO> updateBeedById(@PathVariable("beerId") UUID beerId, @Valid @RequestBody BeerDTO beerDTO){
 		return new ResponseEntity<BeerDTO>(beerService.updateBeer(beerId, beerDTO), HttpStatus.OK);
 	}

@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import guru.springframework.msscbeerservice.domain.Beer;
 import guru.springframework.msscbeerservice.repository.BeerRepository;
@@ -13,9 +12,9 @@ import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
 //@Component
 public class BeerLoader implements CommandLineRunner {
 
-	public static final Long BEER_1_UPC = 631234200036L;
-	public static final Long BEER_2_UPC = 631234300019L;
-	public static final Long BEER_3_UPC = 83783375213L;
+	public static final String BEER_1_UPC = "631234200036";
+	public static final String BEER_2_UPC = "631234300019";
+	public static final String BEER_3_UPC = "83783375213";
 
 	private final BeerRepository beerRepository;
 
