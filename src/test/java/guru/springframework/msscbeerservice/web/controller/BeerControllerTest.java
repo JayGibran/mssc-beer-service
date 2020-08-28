@@ -76,7 +76,7 @@ public class BeerControllerTest {
 	BeerDTO getValidBeerDTO() {
 		return BeerDTO.builder()
 				.beerName("Guiness")
-				.beerStyleEnum(BeerStyleEnum.STOUT)
+				.beerStyle(BeerStyleEnum.STOUT)
 				.price(new BigDecimal(2.0))
 				.upc(BeerLoader.BEER_1_UPC)
 				.build();

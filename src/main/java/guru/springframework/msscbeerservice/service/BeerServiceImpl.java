@@ -54,7 +54,7 @@ public class BeerServiceImpl implements BeerService {
 	public BeerDTO updateBeer(UUID beerId, @Valid BeerDTO beerDTO) {
 		Beer beer = beerRepository.findById(beerId).orElseThrow(NoFoundException::new);
 		beer.setBeerName(beerDTO.getBeerName());
-		beer.setBeerStyle(beerDTO.getBeerStyleEnum().name());
+		beer.setBeerStyle(beerDTO.getBeerStyle().name());
 		beer.setUpc(beerDTO.getUpc());
 		return beerMapper.beerToBeerDTO(beerRepository.save(beer));
 	}
@@ -102,7 +102,8 @@ public class BeerServiceImpl implements BeerService {
 	@Cacheable(cacheNames = "beerUpcCache")
 	@Override
 	public BeerDTO getBeerByUpc(String upc) {
-		return beerMapper.beerToBeerDTO(beerRepository.findByUpc(upc).orElseThrow(NoFoundException::new));
+		BeerDTO dto  = beerMapper.beerToBeerDTO(beerRepository.findByUpc(upc).orElseThrow(NoFoundException::new));
+		return dto;
 	}
 	
 	
