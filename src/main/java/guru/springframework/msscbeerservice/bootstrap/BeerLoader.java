@@ -4,12 +4,13 @@ import java.math.BigDecimal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import guru.springframework.msscbeerservice.domain.Beer;
 import guru.springframework.msscbeerservice.repository.BeerRepository;
 import guru.springframework.msscbeerservice.web.model.BeerStyleEnum;
 
-//@Component
+@Component
 public class BeerLoader implements CommandLineRunner {
 
 	public static final String BEER_1_UPC = "0631234200036";
